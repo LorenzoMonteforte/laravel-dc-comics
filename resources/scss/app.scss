@@ -4,3 +4,11 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
+
+.marTop3rem{
+    margin-top: 3rem;
+}
+
+.marTop3rem:first-of-type{
+    margin-top: 0;
+}

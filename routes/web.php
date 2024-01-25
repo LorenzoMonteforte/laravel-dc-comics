@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +18,5 @@ Route::get('/', function () {
     $dati = config("data");
     return view('index', $dati);
 })->name("index");
+
+Route::resource("books", PageController::class);

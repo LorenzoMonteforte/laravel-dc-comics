@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -11,7 +12,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::all();
+        return view("books.index", compact("books"));
     }
 
     /**
@@ -19,7 +21,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view("books.bookInsert");
     }
 
     /**
@@ -27,7 +29,17 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $books = new Book();
+        $books->title = $data["title"];
+        $books->description = $data["description"];
+        $books->thumb = $data["thumb"];
+        $books->price = $data["price"];
+        $books->series = $data["series"];
+        $books->sale_date = $data["sale_date"];
+        $books->type = $data["type"];
+        $books->save();
+        return redirect()->route("books.show", $books->id);
     }
 
     /**
@@ -35,7 +47,8 @@ class PageController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $book = Book::find($id);
+        return view("books.bookShow", compact("book"));
     }
 
     /**
