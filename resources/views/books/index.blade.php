@@ -12,10 +12,10 @@
             <div>{{ $books[$i]["title"] }}</div>
             <a href="{{ route('books.show', $books[$i]['id'] ) }}">Maggiori informazioni</a>
             <a href="{{ route('books.edit', $books[$i]['id'] ) }}">Modifica</a>
-            <form action="{{ route('books.destroy', $books[$i]['id']) }}" method="POST">
+            <form id="form" action="{{ route('books.destroy', $books[$i]['id']) }}" method="POST">
                 @csrf
                 @method("DELETE")
-                <input type="submit" value="Elimina">
+                <div id="delete">Elimina</div>
             </form>
         </li>
     @endfor
