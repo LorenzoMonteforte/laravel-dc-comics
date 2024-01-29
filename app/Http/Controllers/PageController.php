@@ -4,9 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {
+    public function validation($data){
+        $validated = Validator::make($data, [
+            "title" => "required|unique:books|min:3|max:50",
+            "description" => "required",
+            "thumb" => "required",
+            "price" => "required|min:5|max:8",
+            "series" => "required|min:3|max:50",
+            "type" => "required|min:3|max:30"
+        ], [
+            "title.required" => "Titolo obbligatorio.",
+            "title.unique" => "Titolo già esistente",
+            "title.min" => "Lunghezza min 3 caratteri",
+            "title.max" => "Lunghezza max 3 caratteri",
+
+            "description.required" => "Descrizione obbligatoria.",
+            
+            "thumb.required" => "Percorso immagine obbligatorio.",
+            
+            "price.required" => "Prezzo obbligatorio.",
+            "price.min" => "Lunghezza min 3 caratteri",
+            "price.max" => "Lunghezza max 3 caratteri",
+
+            "series.required" => "Serie obbligatoria.",
+            "series.min" => "Lunghezza min 3 caratteri",
+            "series.max" => "Lunghezza max 3 caratteri",
+
+            "type.required" => "Tipo obbligatorio.",
+            "type.min" => "Lunghezza min 3 caratteri",
+            "type.max" => "Lunghezza max 3 caratteri",
+        ])->validate();
+        return $validated;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -30,6 +63,7 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $dati_validati = $this->validation($data);
         $books = new Book();
         $books->title = $data["title"];
         $books->description = $data["description"];
